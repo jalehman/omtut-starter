@@ -1,0 +1,10 @@
+pom.xml
+*jar
+/lib/
+/classes/
+/targets/
+/resources/public/js/
+/out/
+/target/
+.nrepl-port
+.lein-deps-sum
