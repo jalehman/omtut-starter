@@ -14,13 +14,20 @@
 
 (defn comment-list [app]
   (om/component
-   (dom/div #js {:classname "commentList"}
+   (dom/div #js {:className "commentList"}
             "Hello, world! I am a CommentList.")))
+
+(defn comment-form [app]
+  (om/component
+   (dom/div #js {:className "commentForm"}
+            "Hello, world! I am a CommentForm.")))
 
 (defn comment-box [app]
   (om/component
    (dom/div #js {:className "commentBox"}
-            "Hello, world! I am a CommentBox.")))
+            (dom/h1 nil "Comments")
+            (om/build comment-list app)
+            (om/build comment-form app))))
 
 (defn omtut-starter-app [app]
   (reify
