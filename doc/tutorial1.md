@@ -145,9 +145,11 @@ build React dom components (**aside:** the project
 [sablono](https://github.com/r0man/sablono) by
 [r0man](https://github.com/r0man) provides a way of expressing these
 elements in [hiccup](https://github.com/weavejester/hiccup)-style
-syntax -- super cool). TODO: What is the #js thing all about? We
-define elements in s-expressions, passing attributes as a map of
-`{:attribute "value"}` and defining children as the last argument(s).
+syntax -- super cool). We define components in s-expressions, passing
+attributes as a map of `{:attribute "value"}` and defining children as
+the last argument(s). The `#js` is just shorthand for expressing js
+objects/arrays (thanks [swannodette](https://github.com/swannodette)
+for the clarification on that).
 
 Finally, modify the app definition to render this new component:
 
