@@ -2,6 +2,7 @@
   (:require-macros [cljs.core.async.macros :refer [go alt!]])
   (:require [goog.events :as events]
             [cljs.core.async :refer [put! <! >! chan timeout]]
+            [markdown.core :as md]
             [om.core :as om :include-macros true]
             [om.dom :as dom :include-macros true]
             [cljs-http.client :as http]
@@ -14,9 +15,10 @@
 
 (defn comment [app {:keys [author text] :as opts}]
   (om/component
-   (dom/div #js {:className "comment"}
-            (dom/h2 #js {:className "commentAuthor"} author)
-            text)))
+   (let [raw-markup (md/mdToHtml text)]
+     (dom/div #js {:className "comment"}
+              (dom/h2 #js {:className "commentAuthor"} author)
+              (dom/span #js {:dangerouslySetInnerHTML #js {:__html raw-markup}})))))
 
 (defn comment-list [app]
   (om/component
