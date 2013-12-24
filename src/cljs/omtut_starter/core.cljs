@@ -12,6 +12,11 @@
 (def app-state
   (atom {:things []}))
 
+(defn comment-list [app]
+  (om/component
+   (dom/div #js {:classname "commentList"}
+            "Hello, world! I am a CommentList.")))
+
 (defn comment-box [app]
   (om/component
    (dom/div #js {:className "commentBox"}
