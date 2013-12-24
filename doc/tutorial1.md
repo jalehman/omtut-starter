@@ -114,7 +114,7 @@ var OmtutStarterApp = React.createClass({
 in React.
 
 We frequently only need to implement the `render` method of a
-component, so Om has a convenience function for that. The definition
+component, so Om has a convenience macro for that. The definition
 of `omtut-starter-app` could be rewritten as:
 
 ```clojure
@@ -147,7 +147,7 @@ build React dom components (**aside:** the project
 elements in [hiccup](https://github.com/weavejester/hiccup)-style
 syntax -- super cool). TODO: What is the #js thing all about? We
 define elements in s-expressions, passing attributes as a map of
-{:attribute "value"} and defining children as the last argument(s).
+`{:attribute "value"}` and defining children as the last argument(s).
 
 Finally, modify the app definition to render this new component:
 
