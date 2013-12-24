@@ -136,7 +136,7 @@ form of an Om component shown above to do so now.
 (defn comment-box [app]
   (om/component
    (dom/div #js {:className "commentBox"}
-            (dom/h1 nil "Hello, world! I am a CommentBox."))))
+            "Hello, world! I am a CommentBox."))))
 ```
 
 Just as React defines JSX for working with HTML-looking elements in JS
