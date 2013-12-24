@@ -15,7 +15,7 @@
 (defn comment-box [app]
   (om/component
    (dom/div #js {:className "commentBox"}
-            (dom/h1 nil "Hello, world! I am a CommentBox."))))
+            "Hello, world! I am a CommentBox.")))
 
 (defn omtut-starter-app [app]
   (reify
