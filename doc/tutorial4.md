@@ -1,6 +1,7 @@
 # [Component Properties](http://facebook.github.io/react/docs/tutorial.html#component-properties) (tutorials 4-5)
 
 In Om, we have two facilities for passing data into our components:
+
 1. Passing data in options directly to a component,
 2. accessing application state.
 
