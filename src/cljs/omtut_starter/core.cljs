@@ -11,9 +11,11 @@
 (enable-console-print!)
 
 (def app-state
-  (atom {:things []}))
+  (atom {:comments
+         [{:author "Pete Hunt" :text "This is one comment" :id (guid)}
+          {:author "Jordan Walke" :text "This is *another* comment" :id (guid)}]}))
 
-(defn comment [app {:keys [author text] :as opts}]
+(defn comment [{:keys [author text] :as c} opts]
   (om/component
    (let [raw-markup (md/mdToHtml text)]
      (dom/div #js {:className "comment"}
@@ -23,10 +25,11 @@
 (defn comment-list [app]
   (om/component
    (dom/div #js {:className "commentList"}
-            (om/build comment app {:opts {:author "Pete Hunt"
-                                          :text "This is one comment"}})
-            (om/build comment app {:opts {:author "Jordan Walke"
-                                          :text "This is *another* comment"}}))))
+            (into-array
+             (map #(om/build comment app
+                             {:path [:comments %]
+                              :key :id})
+                  (range (count (:comments app))))))))
 
 (defn comment-form [app]
   (om/component
