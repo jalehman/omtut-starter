@@ -150,7 +150,6 @@ the reader:
 
 1. So far we've got *Create* and *Read* of CRUD. How about the *D* and
    *U*?
-
    + Only the author (let's not bother with admins) should be able to
      update and delete his or her own comments. How about some kind of
      basic system for entering your name at the start of the
@@ -159,7 +158,6 @@ the reader:
 2. Comments are generally not a standalone piece of an application --
    they accompany some other piece of content. How would you attach
    a CommentBox to another component containing subject matter?
-
    + It's often nice to be able to show and hide the list of
      comments. How would you make the CommentBox showable/hideable?
      What would be a good way to make *anything* showable/hideable in
