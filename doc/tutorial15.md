@@ -144,9 +144,9 @@ comments. That concludes the full React tutorial!
 
 There are quite a few things that could be improved about this
 component that I've been thinking about, and I will probably try to
-implement some of my ideas at one point. Until I get around to it,
-here are my ideas that can be used as excercises/practice problems for
-the reader:
+implement some of my ideas at one point. Until I get around to doing
+these myself in tutorial form, here are some ideas that can be used as
+excercises/practice problems for the reader:
 
 1. So far we've got *Create* and *Read* of CRUD. How about the *D* and
    *U*?
