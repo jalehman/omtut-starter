@@ -10,10 +10,19 @@
 
 (enable-console-print!)
 
+(defn- with-id
+  [m]
+  (assoc m :id (guid)))
+
+(defn- fetch-comments
+  [url]
+  (let [c (chan)]
+    (go (let [{{comments :comments} :body} (<! (http/get url))]
+          (>! c (vec (map with-id comments)))))
+    c))
+
 (def app-state
-  (atom {:comments
-         [{:author "Pete Hunt" :text "This is one comment" :id (guid)}
-          {:author "Jordan Walke" :text "This is *another* comment" :id (guid)}]}))
+  (atom {}))
 
 (defn comment [{:keys [author text] :as c} opts]
   (om/component
@@ -36,18 +45,31 @@
    (dom/div #js {:className "commentForm"}
             "Hello, world! I am a CommentForm.")))
 
-(defn comment-box [app]
-  (om/component
-   (dom/div #js {:className "commentBox"}
-            (dom/h1 nil "Comments")
-            (om/build comment-list app)
-            (om/build comment-form app))))
+(defn comment-box [app opts]
+  (reify
+    om/IInitState
+    (init-state [_ owner]
+      (om/update! app [:comments] (fn [] [])))
+    om/IWillMount
+    (will-mount [_ owner]
+      (go (while true
+            (let [comments (<! (fetch-comments (:url opts)))]
+              (om/update! app #(assoc % :comments comments)))
+            (<! (timeout (:poll-interval opts))))))
+    om/IRender
+    (render [_ owner]
+      (dom/div #js {:className "commentBox"}
+               (dom/h1 nil "Comments")
+               (om/build comment-list app)
+               (om/build comment-form app)))))
 
 (defn omtut-starter-app [app]
   (reify
     om/IRender
     (render [_ owner]
       (dom/div nil
-               (om/build comment-box app)))))
+               (om/build comment-box app
+                         {:opts {:url "/comments"
+                                 :poll-interval 2000}})))))
 
 (om/root app-state omtut-starter-app (.getElementById js/document "content"))
