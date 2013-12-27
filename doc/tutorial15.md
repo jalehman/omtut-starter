@@ -86,7 +86,7 @@ tutorial).
 (defn save-comment!
   [comment url]
   (go (let [res (<! (http/post url {:json-params comment}))]
-        (prn (:message res)))))
+        (prn (get-in res [:body :message])))))
 ```
 
 Finally, we have the tools we need to define the handler itself:
