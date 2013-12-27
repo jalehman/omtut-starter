@@ -47,9 +47,16 @@ takes the event as its first argument, the component itself (exposed
 as `owner`), and the `opts` map. We pass the `opts` map because we
 need the url of the endpoint we're posting to. There are also `ref`
 attributes on the two inputs now to provide access to the value in the
-input node.
+input node. Remember to update the `comment-box` definition to pass
+its opts to `comment-form`:
 
-Our handler is going to need to extract values from input nodes, clear
+```clojure
+(defn comment-box [app opts]
+   ...
+               (om/build comment-form app {:opts opts})))))
+```
+
+Our `onSubmit` handler is going to need to extract values from input nodes, clear
 the values from nodes, and POST a comment to the `/comments`
 endpoint. Let's define some helper functions to handle these tasks.
 
