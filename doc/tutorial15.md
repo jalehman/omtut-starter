@@ -36,7 +36,7 @@ definition.
     om/IRender
     (render [_ owner]
       (dom/form
-       #js {:className "commentForm" :onSubmit #(handle-submit % owner app opts)}
+       #js {:className "commentForm" :onSubmit #(handle-submit % owner opts)}
        (dom/input #js {:type "text" :placeholder "Your Name" :ref "author"})
        (dom/input #js {:type "text" :placeholder "Say something..." :ref "text"})
        (dom/input #js {:type "submit" :value "Post"})))))
