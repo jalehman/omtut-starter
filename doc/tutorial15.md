@@ -36,7 +36,7 @@ definition.
     om/IRender
     (render [_ owner]
       (dom/form
-       #js {:className "commentForm" :onSubmit #(handle-submit % owner app opts)}
+       #js {:className "commentForm" :onSubmit #(handle-submit % owner opts)}
        (dom/input #js {:type "text" :placeholder "Your Name" :ref "author"})
        (dom/input #js {:type "text" :placeholder "Say something..." :ref "text"})
        (dom/input #js {:type "submit" :value "Post"})))))
@@ -47,9 +47,16 @@ takes the event as its first argument, the component itself (exposed
 as `owner`), and the `opts` map. We pass the `opts` map because we
 need the url of the endpoint we're posting to. There are also `ref`
 attributes on the two inputs now to provide access to the value in the
-input node.
+input node. Remember to update the `comment-box` definition to pass
+its opts to `comment-form`:
 
-Our handler is going to need to extract values from input nodes, clear
+```clojure
+(defn comment-box [app opts]
+   ...
+               (om/build comment-form app {:opts opts})))))
+```
+
+Our `onSubmit` handler is going to need to extract values from input nodes, clear
 the values from nodes, and POST a comment to the `/comments`
 endpoint. Let's define some helper functions to handle these tasks.
 
@@ -86,7 +93,7 @@ tutorial).
 (defn save-comment!
   [comment url]
   (go (let [res (<! (http/post url {:json-params comment}))]
-        (prn (:message res)))))
+        (prn (get-in res [:body :message])))))
 ```
 
 Finally, we have the tools we need to define the handler itself:
@@ -112,7 +119,7 @@ comments from a server, save new comments, have that list update when
 comments from other clients are saved, and there's even some
 rudimentary validation.
 
-## [Optimization: optmistic updates](http://facebook.github.io/react/docs/tutorial.html#optimization-optimistic-updates) (tutorial 20)
+## [Optimization: optimistic updates](http://facebook.github.io/react/docs/tutorial.html#optimization-optimistic-updates) (tutorial 20)
 
 A simple way to make the component better would be to update the
 comment list upon entry of a new comment *immediately*, rather than
@@ -146,7 +153,7 @@ There are quite a few things that could be improved about this
 component that I've been thinking about, and I will probably try to
 implement some of my ideas at one point. Until I get around to doing
 these myself in tutorial form, here are some ideas that can be used as
-excercises/practice problems for the reader:
+exercises/practice problems for the reader:
 
 1. So far we've got *Create* and *Read* of CRUD. How about the *D* and
    *U*?
