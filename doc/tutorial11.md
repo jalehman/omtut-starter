@@ -110,7 +110,7 @@ under the `:ring` key:
 
 ## Fetching the comments
 
-In the react tutorial they use the jQuery `$.ajax` function to hit hte
+In the react tutorial they use the jQuery `$.ajax` function to hit the
 server -- we're going to use
 [cljs-http](https://github.com/r0man/cljs-http). It's a bit newer than
 some of the other CLJS ajax libraries out there, but I like it due to

@@ -26,9 +26,9 @@ For getting the latest version of Om, follow swannodette's instructions [here](h
 Create a new project template with `lein new om-starter
 <name-of-repo>` substituting `<name-of-repo>` with whatever you want
 to call the repository. The `/doc` directory contains files
-`tutorial1.md` through `tutorial5.md` that correspond 1:1 in
+`tutorial1.md` through `tutorial15.md` that correspond 1:1 in
 functionality (JS and CLJS don't always have a 1:1 mapping), with the
-original tutorial. Many of the files contain several of the original 
+original tutorial. Many of the files contain several of the original
 tutorials.
 
 After creating your repo with the lein template `om-starter`, `cd`

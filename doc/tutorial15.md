@@ -112,7 +112,7 @@ comments from a server, save new comments, have that list update when
 comments from other clients are saved, and there's even some
 rudimentary validation.
 
-## [Optimization: optmistic updates](http://facebook.github.io/react/docs/tutorial.html#optimization-optimistic-updates) (tutorial 20)
+## [Optimization: optimistic updates](http://facebook.github.io/react/docs/tutorial.html#optimization-optimistic-updates) (tutorial 20)
 
 A simple way to make the component better would be to update the
 comment list upon entry of a new comment *immediately*, rather than
@@ -146,7 +146,7 @@ There are quite a few things that could be improved about this
 component that I've been thinking about, and I will probably try to
 implement some of my ideas at one point. Until I get around to doing
 these myself in tutorial form, here are some ideas that can be used as
-excercises/practice problems for the reader:
+exercises/practice problems for the reader:
 
 1. So far we've got *Create* and *Read* of CRUD. How about the *D* and
    *U*?
