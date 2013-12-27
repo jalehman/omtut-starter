@@ -130,9 +130,13 @@ your `app` definition like so:
                          {:opts {:url "/comments"}}))
 ```
 
-Now, let's define a function to get our comments from the server.
+Now, let's define functions to get our comments from the server.
 
 ```clojure
+(defn- with-id
+ [m]
+ (assoc m :id (guid)))
+
 (defn- fetch-comments
   [url]
   (let [c (chan)]
@@ -141,10 +145,9 @@ Now, let's define a function to get our comments from the server.
     c))
 ```
 
-Given a url, the function above issues an http GET request, extracts
-the comments from the body of the response, adds a `guid` to each
-comment, puts the result of that request on a channel, and returns the
-channel.
+Given a url, `fetch-comments` issues an http GET request, extracts the
+comments from the body of the response, adds a `guid` to each comment,
+puts the result of that request on a channel, and returns the channel.
 
 Now we just need to wire this function up to our component to make
 sure that it gets run before the component is rendered. We'll do that
