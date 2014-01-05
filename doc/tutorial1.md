@@ -21,10 +21,10 @@ At this point core.cljs should look something like this:
 (def app-state
   (atom {:things []}))
 
-(defn omtut-starter-app [app]
+(defn omtut-starter-app [app owner]
   (reify
     om/IRender
-    (render [_ owner]
+    (render [_]
       (dom/div nil
                (dom/h1 nil "omtut-starter is working!")))))
 
@@ -92,10 +92,10 @@ React defines a number of methods available to components which are
 implemented as protocols in Om.
 
 ```clojure
-(defn omtut-starter-app [app]
+(defn omtut-starter-app [app owner]
   (reify
     om/IRender
-    (render [_ owner]
+    (render [_]
     ...)))
 ```
 
@@ -118,7 +118,7 @@ component, so Om has a convenience macro for that. The definition
 of `omtut-starter-app` could be rewritten as:
 
 ```clojure
-(defn omtut-starter-app [app]
+(defn omtut-starter-app [app owner]
   (om/component
     (dom/div nil
         (dom/h1 nil "omtut-starter is working!"))))
@@ -157,7 +157,7 @@ Finally, modify the app definition to render this new component:
 (defn omtut-starter-app [app]
   (reify
     om/IRender
-    (render [_ owner]
+    (render [_]
       (dom/div nil
                (om/build comment-box app)))))
 ```

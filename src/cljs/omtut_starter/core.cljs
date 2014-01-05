@@ -13,7 +13,7 @@
 (def app-state
   (atom {:things []}))
 
-(defn comment [app {:keys [author text] :as opts}]
+(defn comment [app owner {:keys [author text] :as opts}]
   (om/component
    (let [raw-markup (md/mdToHtml text)]
      (dom/div #js {:className "comment"}
@@ -40,10 +40,10 @@
             (om/build comment-list app)
             (om/build comment-form app))))
 
-(defn omtut-starter-app [app]
+(defn omtut-starter-app [app owner]
   (reify
     om/IRender
-    (render [_ owner]
+    (render [_]
       (dom/div nil
                (om/build comment-box app)))))
 
