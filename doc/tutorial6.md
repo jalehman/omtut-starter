@@ -10,7 +10,7 @@ The library we'll use is
 namespace.
 
 ```clojure
-(defn comment [app {:keys [author text] :as opts}]
+(defn comment [app owner {:keys [author text] :as opts}]
   (om/component
    (let [raw-markup (md/mdToHtml text)]
      (dom/div #js {:className "comment"}
