@@ -42,19 +42,19 @@
    (dom/div #js {:className "commentForm"}
             "Hello, world! I am a CommentForm.")))
 
-(defn comment-box [app opts]
+(defn comment-box [app owner opts]
   (reify
     om/IInitState
-    (init-state [_ owner]
-      (om/update! app [:comments] (fn [] [])))
+    (init-state [_]
+      (om/transact! app [:comments] (fn [] [])))
     om/IWillMount
-    (will-mount [_ owner]
+    (will-mount [_]
       (go (while true
             (let [comments (<! (fetch-comments (:url opts)))]
               (om/update! app #(assoc % :comments comments)))
             (<! (timeout (:poll-interval opts))))))
     om/IRender
-    (render [_ owner]
+    (render [_]
       (dom/div #js {:className "commentBox"}
                (dom/h1 nil "Comments")
                (om/build comment-list app)
