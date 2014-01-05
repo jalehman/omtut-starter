@@ -38,10 +38,10 @@
             (om/build comment-list app)
             (om/build comment-form app))))
 
-(defn omtut-starter-app [app]
+(defn omtut-starter-app [app owner]
   (reify
     om/IRender
-    (render [_ owner]
+    (render [_]
       (dom/div nil
                (om/build comment-box app)))))
 
