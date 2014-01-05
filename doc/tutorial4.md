@@ -29,7 +29,7 @@ Let's define our `comment` component. Now, instead of just taking
 destructure them).
 
 ```clojure
-(defn comment [app {:keys [author text] :as opts}]
+(defn comment [app owner {:keys [author text] :as opts}]
   (om/component
    (dom/div #js {:className "comment"}
             (dom/h2 #js {:className "commentAuthor"} author)
@@ -37,4 +37,5 @@ destructure them).
 ```
 
 `opts` is one key of several that can be passed as the last argument
-to `om/build`. We'll explore more of these later.
+to `om/build`. We'll explore more of these later. Note, we have to
+include the `owner` argument as the second argument.
