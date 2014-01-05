@@ -15,21 +15,18 @@
          [{:author "Pete Hunt" :text "This is one comment" :id (guid)}
           {:author "Jordan Walke" :text "This is *another* comment" :id (guid)}]}))
 
-(defn comment [{:keys [author text] :as c} opts]
+(defn comment [{:keys [author text]} owner opts]
   (om/component
    (let [raw-markup (md/mdToHtml text)]
      (dom/div #js {:className "comment"}
               (dom/h2 #js {:className "commentAuthor"} author)
               (dom/span #js {:dangerouslySetInnerHTML #js {:__html raw-markup}})))))
 
-(defn comment-list [app]
+(defn comment-list [{:keys [comments]}]
   (om/component
    (dom/div #js {:className "commentList"}
-            (into-array
-             (map #(om/build comment app
-                             {:path [:comments %]
-                              :key :id})
-                  (range (count (:comments app))))))))
+            (om/build-all comment comments
+                          {:key :id}))))
 
 (defn comment-form [app]
   (om/component
@@ -43,11 +40,11 @@
             (om/build comment-list app)
             (om/build comment-form app))))
 
-(defn omtut-starter-app [app]
+(defn omtut-starter-app [app owner]
   (reify
     om/IRender
-    (render [_ owner]
+    (render [_]
       (dom/div nil
-               (om/build comment-box app)))))
+        (om/build comment-box app)))))
 
 (om/root app-state omtut-starter-app (.getElementById js/document "content"))

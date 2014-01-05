@@ -22,39 +22,41 @@ to tell Om where to find our data and what to do with it. Change your
 `comment-list` as follows:
 
 ```clojure
-(defn comment-list [app]
+(defn comment-list [{:keys [comments]}]
   (om/component
    (dom/div #js {:className "commentList"}
-            (into-array
-             (map #(om/build comment app
-                             {:path [:comments]})
-                  (range (count (:comments app))))))))
+            (om/build-all comment comments)))
 ```
 
-Here we build a list of two comments, specifying the `:path` to the
-data that should be passed to the `comment` component. This is another
-of the keys that that `om/build`'s third argument can take. Don't
-forget the `into-array` call to convert the CLJS list into a JS array.
+<!-- Here we build a list of two comments, specifying the `:path` to the -->
+<!-- data that should be passed to the `comment` component. This is another -->
+<!-- of the keys that that `om/build`'s third argument can take. Don't -->
+<!-- forget the `into-array` call to convert the CLJS list into a JS array. -->
+
+Here we destructure the cursor to expose the comments, and use the Om
+`build-all` function to construct a sequence of
+components. `build-all` takes three arguments (the third is optional):
+a component constructor, the sequence of cursors, and options like
+those passed to `build`.
+
+<!-- The important piece of the third argument is -->
+<!-- the unique `:id` key that allows Om to distinguish repeated comments. -->
 
 Finally, we modify the `comment` component to destructure the cursor
 rather than the options:
 
 ```clojure
-(defn comment [{:keys [author text] :as c} opts]
+(defn comment [{:keys [author text] :as c} owner opts]
   ...)
 ```
 
-This code will compile fine, but you should get an `Undefined
-nameToPath` error. Doh!
-
-The problem is that we've specified a path to a *vector* of maps, and
-the `comment` component is expecting a single map. We need to define a
-way to identify which object to be rendered. To accomplish this, we'll
-do two things:
-
-1. Extend the path to reference the index of the element to render, and
-2. Specify a unique key in each element for React to differentiate
-   between each element in the sequence.
+This code will work fine, but if you open up the console you'll notice
+a warning: `Each child in an array should have a unique "key"
+prop. Check the render method of undefined.` The problem is that React
+has no way of uniquely identifying which element is which in the
+sequence of rendered components. To fix this, we'll specify a unique
+key in each element for React to differentiate between each element in
+the sequence.
 
 Modify `app-state` as follows:
 
@@ -75,17 +77,11 @@ Next, we modify the `comment-list` component:
 (defn comment-list [app]
   (om/component
    (dom/div #js {:className "commentList"}
-            (into-array
-             (map #(om/build comment app
-                             {:path [:comments %]
-                              :key :id})
-                  (range (count (:comments app))))))))
+            (om/build-all comment comments
+                          {:key :id}))))
 ```
 
-We extend the `:path` to now point to the index of the specific
-element within the `:comments` list. We also specify the unique `:key`
-(`:id`) that contains the guid of the element so that React can
-differentiate it from other elements when rendering updates. (Is this
-correct?)
+We specify a way in the options map to distinguish these comments from
+each other via the `:key` propety.
 
 Now we're complete through tutorial 10.
