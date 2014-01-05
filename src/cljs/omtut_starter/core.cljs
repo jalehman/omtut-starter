@@ -45,6 +45,6 @@
     om/IRender
     (render [_]
       (dom/div nil
-               (om/build comment-box app)))))
+        (om/build comment-box app)))))
 
 (om/root app-state omtut-starter-app (.getElementById js/document "content"))
