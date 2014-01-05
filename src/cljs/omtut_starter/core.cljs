@@ -56,15 +56,15 @@
     (when (and author text)
       (let [comment {:author author :text text}]
         (save-comment! comment (:url opts))
-        (om/update! app [:comments]
+        (om/transact! app [:comments]
                     (fn [comments] (conj comments (assoc comment :id (guid))))))
       (clear-nodes! author-node text-node))
     false))
 
-(defn comment-form [app opts]
+(defn comment-form [app owner opts]
   (reify
     om/IRender
-    (render [_ owner]
+    (render [_]
       (dom/form
        #js {:className "commentForm" :onSubmit #(handle-submit % owner app opts)}
        (dom/input #js {:type "text" :placeholder "Your Name" :ref "author"})
