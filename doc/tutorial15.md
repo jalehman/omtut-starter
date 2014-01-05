@@ -31,10 +31,10 @@ component. This means that we'll need to use the expanded component
 definition.
 
 ```clojure
-(defn comment-form [app opts]
+(defn comment-form [app owner opts]
   (reify
     om/IRender
-    (render [_ owner]
+    (render [_]
       (dom/form
        #js {:className "commentForm" :onSubmit #(handle-submit % owner opts)}
        (dom/input #js {:type "text" :placeholder "Your Name" :ref "author"})
@@ -126,7 +126,7 @@ comment list upon entry of a new comment *immediately*, rather than
 waiting for our polling to pick it up.
 
 Instead of just sending the comment off to the server, we can also
-update our cursor with a call to `om/update!` (which triggers a
+update our cursor with a call to `om/transact!` (which triggers a
 component render).
 
 ```clojure
@@ -137,14 +137,14 @@ component render).
     (when (and author text)
       (let [comment {:author author :text text}]
         (save-comment! comment (:url opts))
-        (om/update! app [:comments]
+        (om/transact! app [:comments]
                     (fn [comments] (conj comments (assoc comment :id (guid))))))
       (clear-nodes! author-node text-node))
     false))
 ```
 
 We modify `handle-submit` to take the cursor as an argument, and
-include a call to `om/update!` to add our comment to the existing
+include a call to `om/transact!` to add our comment to the existing
 comments. That concludes the full React tutorial!
 
 ## What now?

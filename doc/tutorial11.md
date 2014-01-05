@@ -36,17 +36,18 @@ method in React. Update the `comment-box` definition as follows:
   (reify
     om/IInitState
     (init-state [_ owner]
-      (om/update! app [:comments] (fn [] []))
+      (om/transact! app [:comments] (fn [] []))
     om/IRender
     ...))
 ```
 
-[`om/update!`](https://github.com/swannodette/om/blob/master/src/om/core.cljs#L225)
+[`om/transact!`](https://github.com/swannodette/om/blob/master/src/om/core.cljs#L428)
 takes a cursor, a list of keys, and a function -- and applies the
 function to the data in the cursor at the path represented by the list
 of keys. Here, we're just initializing our `:comments` to an empty
-vector. `om/update!` alternatively takes just a cursor and function --
-we could rewrite the above like so:
+vector. [`om/update!`](https://github.com/swannodette/om/blob/master/src/om/core.cljs#L457)
+alternatively takes just a cursor and function -- we could rewrite the
+above like so:
 
 ```clojure
 ...
@@ -124,7 +125,7 @@ ideal candidate to pass as `:opts` to the component using it. Update
 your `app` definition like so:
 
 ```clojure
-(defn omtut-starter-app [app]
+(defn omtut-starter-app [app owner]
    ...
                (om/build comment-box app
                          {:opts {:url "/comments"}}))
@@ -158,12 +159,12 @@ in React), which is "invoked immediately before rendering occurs".
 In your `comment-box` definition, add the following method:
 
 ```clojure
-(defn comment-box [app opts]
+(defn comment-box [app owner opts]
   (reify
     om/IInitState
     ...
     om/IWillMount
-    (will-mount [_ owner]
+    (will-mount [_]
       (go (let [comments (<! (fetch-comments (:url opts)))]
             (om/update! app #(assoc % :comments comments)))))
     om/IRender
@@ -188,11 +189,11 @@ definition to loop every two seconds by using a `timeout` channel
 your `ns` definition).
 
 ```clojure
-(defn comment-box [app opts]
+(defn comment-box [app owner opts]
   (reify
     ...
     om/IWillMount
-    (will-mount [_ owner]
+    (will-mount [_]
       (go (while true
             (let [comments (<! (fetch-comments (:url opts)))]
               (om/update! app #(assoc % :comments comments)))
