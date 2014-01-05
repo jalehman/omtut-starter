@@ -12,7 +12,7 @@
 (def app-state
   (atom {:things []}))
 
-(defn comment [app {:keys [author text] :as opts}]
+(defn comment [app owner {:keys [author text] :as opts}]
   (om/component
    (dom/div #js {:className "comment"}
             (dom/h2 #js {:className "commentAuthor"} author)
