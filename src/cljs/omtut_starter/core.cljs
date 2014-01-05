@@ -17,10 +17,10 @@
    (dom/div #js {:className "commentBox"}
             "Hello, world! I am a CommentBox.")))
 
-(defn omtut-starter-app [app]
+(defn omtut-starter-app [app owner]
   (reify
     om/IRender
-    (render [_ owner]
+    (render [_]
       (dom/div nil
                (om/build comment-box app)))))
 
