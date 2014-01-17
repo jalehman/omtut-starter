@@ -35,7 +35,7 @@ method in React. Update the `comment-box` definition as follows:
 (defn comment-box [app]
   (reify
     om/IInitState
-    (init-state [_ owner]
+    (init-state [_]
       (om/transact! app [:comments] (fn [] []))
     om/IRender
     ...))
@@ -51,7 +51,7 @@ above like so:
 
 ```clojure
 ...
-(init-state [_ owner]
+(init-state [_]
   (om/update! app #(assoc % :comments [])))
 ...
 ```

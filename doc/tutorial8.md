@@ -74,7 +74,7 @@ method to generate a unique id for each element.
 Next, we modify the `comment-list` component:
 
 ```clojure
-(defn comment-list [app]
+(defn comment-list [{:keys [comments]}]
   (om/component
    (dom/div #js {:className "commentList"}
             (om/build-all comment comments
