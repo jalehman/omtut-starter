@@ -6,12 +6,12 @@ convenience macro:
 ```clojure
 (defn comment-list [app]
   (om/component
-   (dom/div #js {:classname "commentList"}
+   (dom/div #js {:className "commentList"}
             "Hello, world! I am a CommentList.")))
 
 (defn comment-form [app]
   (om/component
-   (dom/div #js {:classname "commentForm"}
+   (dom/div #js {:className "commentForm"}
             "Hello, world! I am a CommentForm.")))
 ```
 
