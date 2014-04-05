@@ -25,7 +25,7 @@ to tell Om where to find our data and what to do with it. Change your
 (defn comment-list [{:keys [comments]}]
   (om/component
    (dom/div #js {:className "commentList"}
-            (om/build-all comment comments)))
+            (into-array (om/build-all comment comments))))
 ```
 
 <!-- Here we build a list of two comments, specifying the `:path` to the -->
