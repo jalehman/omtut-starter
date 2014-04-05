@@ -106,4 +106,4 @@
                           :poll-interval 2000}})))))
 
 
-(om/root app-state omtut-starter-app (.getElementById js/document "content"))
+(om/root omtut-starter-app app-state {:target (.getElementById js/document "content")})
