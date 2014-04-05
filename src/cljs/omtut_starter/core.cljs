@@ -19,26 +19,27 @@
   (om/component
    (let [raw-markup (md/mdToHtml text)]
      (dom/div #js {:className "comment"}
-              (dom/h2 #js {:className "commentAuthor"} author)
-              (dom/span #js {:dangerouslySetInnerHTML #js {:__html raw-markup}})))))
+       (dom/h2 #js {:className "commentAuthor"} author)
+       (dom/span #js {:dangerouslySetInnerHTML #js {:__html raw-markup}})))))
+
 
 (defn comment-list [{:keys [comments]}]
   (om/component
-   (dom/div #js {:className "commentList"}
-            (om/build-all comment comments
-                          {:key :id}))))
+   (apply dom/div #js {:className "commentList"}
+     (om/build-all comment comments {:key :id}))))
+
 
 (defn comment-form [app]
   (om/component
    (dom/div #js {:className "commentForm"}
-            "Hello, world! I am a CommentForm.")))
+     "Hello, world! I am a CommentForm.")))
 
 (defn comment-box [app]
   (om/component
    (dom/div #js {:className "commentBox"}
-            (dom/h1 nil "Comments")
-            (om/build comment-list app)
-            (om/build comment-form app))))
+     (dom/h1 nil "Comments")
+     (om/build comment-list app)
+     (om/build comment-form app))))
 
 (defn omtut-starter-app [app owner]
   (reify
@@ -47,4 +48,4 @@
       (dom/div nil
         (om/build comment-box app)))))
 
-(om/root app-state omtut-starter-app (.getElementById js/document "content"))
+(om/root omtut-starter-app app-state {:target (.getElementById js/document "content")})
