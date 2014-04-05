@@ -15,13 +15,14 @@
 (defn comment-box [app]
   (om/component
    (dom/div #js {:className "commentBox"}
-            "Hello, world! I am a CommentBox.")))
+     "Hello, world! I am a CommentBox.")))
 
 (defn omtut-starter-app [app owner]
   (reify
     om/IRender
     (render [_]
       (dom/div nil
-               (om/build comment-box app)))))
+        (om/build comment-box app)))))
 
-(om/root app-state omtut-starter-app (.getElementById js/document "content"))
+(om/root omtut-starter-app app-state
+         {:target (.getElementById js/document "content")})
