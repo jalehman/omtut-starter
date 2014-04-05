@@ -15,25 +15,25 @@
 (defn comment-list [app]
   (om/component
    (dom/div #js {:className "commentList"}
-            "Hello, world! I am a CommentList.")))
+     "Hello, world! I am a CommentList.")))
 
 (defn comment-form [app]
   (om/component
    (dom/div #js {:className "commentForm"}
-            "Hello, world! I am a CommentForm.")))
+     "Hello, world! I am a CommentForm.")))
 
 (defn comment-box [app]
   (om/component
    (dom/div #js {:className "commentBox"}
-            (dom/h1 nil "Comments")
-            (om/build comment-list app)
-            (om/build comment-form app))))
+     (dom/h1 nil "Comments")
+     (om/build comment-list app)
+     (om/build comment-form app))))
 
 (defn omtut-starter-app [app owner]
   (reify
     om/IRender
     (render [_]
       (dom/div nil
-               (om/build comment-box app)))))
+        (om/build comment-box app)))))
 
-(om/root app-state omtut-starter-app (.getElementById js/document "content"))
+(om/root omtut-starter-app app-state {:target (.getElementById js/document "content")})
