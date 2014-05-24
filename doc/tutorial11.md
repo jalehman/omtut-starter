@@ -8,7 +8,7 @@ powers.
 
 What we need now is to fetch data from a server. We'll start by
 pulling the comments out of our application code and defining them in
-a JSON file at the root of our project.
+a JSON file at the root of our project. Name this file `comments.json`
 
 ```json
 [
