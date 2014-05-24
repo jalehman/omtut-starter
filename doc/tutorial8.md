@@ -2,13 +2,13 @@
 
 Up to this point we've enumerated individual `comment` components and
 built them with explicit properties. Ideally, these comments would be
-pulled from some sort of back-end into a list of comments and rendered
+pulled from some sort of server-side backend into a list of comments and rendered
 in sequence.
 
-Before getting into pulling them from a back-end, we'll simulate the
+Before getting into pulling them from a backend, we'll simulate the
 effect by hard-coding the comments we want.
 
-The cursor is a good place to represent this -- Om watches the cursor
+The cursor is a good place to represent this – Om watches the cursor
 for changes and updates the UI accordingly.
 
 ```clojure
@@ -36,8 +36,8 @@ to tell Om where to find our data and what to do with it. Change your
 Here we destructure the cursor to expose the comments, and use the Om
 `build-all` function to construct a sequence of
 components. `build-all` takes three arguments (the third is optional):
-a component constructor, the sequence of cursors, and options like
-those passed to `build`.
+a component constructor, the sequence of cursors, and options just like the
+ones we passed to `build`.
 
 <!-- The important piece of the third argument is -->
 <!-- the unique `:id` key that allows Om to distinguish repeated comments. -->
@@ -82,6 +82,6 @@ Next, we modify the `comment-list` component:
 ```
 
 We specify a way in the options map to distinguish these comments from
-each other via the `:key` propety.
+each other via the `:key` property.
 
-Now we're complete through tutorial 10.
+Now we're done with tutorial 10.
